@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyy0r5n8ihalh"]
+
+[ext_resource type="Texture2D" uid="uid://uxs8ykdrixrs" path="res://Assets/Imagenes/Cafetera.png" id="1_rf3th"]
+[ext_resource type="Script" uid="uid://bc2eewkamkn1t" path="res://Assets/Objetos/area_enganche.gd" id="2_hag87"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rf3th"]
+size = Vector2(66, 61)
+
+[node name="Cafetera" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(94.6873, -63.1249)
+scale = Vector2(0.388428, 0.388428)
+texture = ExtResource("1_rf3th")
+
+[node name="Enganche_Cafetera" type="Area2D" parent="."]
+script = ExtResource("2_hag87")
+offset = Vector2(97, -58)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enganche_Cafetera"]
+position = Vector2(34, -79.5)
+shape = SubResource("RectangleShape2D_rf3th")
+
+[connection signal="body_entered" from="Enganche_Cafetera" to="Enganche_Cafetera" method="_on_AreaEnganche_body_entered"]
+[connection signal="body_exited" from="Enganche_Cafetera" to="Enganche_Cafetera" method="_on_AreaEnganche_body_exited"]

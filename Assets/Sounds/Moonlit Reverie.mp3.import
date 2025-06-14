@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cp4tebaucumoi"
+path="res://.godot/imported/Moonlit Reverie.mp3-28fdb29f6fc9b9b0a72c10b01579cf00.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Moonlit Reverie.mp3"
+dest_files=["res://.godot/imported/Moonlit Reverie.mp3-28fdb29f6fc9b9b0a72c10b01579cf00.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
