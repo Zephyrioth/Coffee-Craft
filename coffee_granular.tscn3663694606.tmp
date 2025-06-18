@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnkic7kkbokr7"]
+
+[ext_resource type="Script" uid="uid://bhelfxasyf2qg" path="res://coffee_granular.gd" id="1_uktcn"]
+[ext_resource type="Material" uid="uid://cl83liksl5kn4" path="res://Assets/materials/coffee_shader.tres.tres" id="2_fg456"]
+[ext_resource type="Texture2D" uid="uid://d1dbb08tbg7p4" path="res://Assets/textures/coffee_texture.png" id="3_fg456"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_no2k0"]
+radius = 6.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_no2k0"]
+size = Vector2(9.5, 9.5)
+
+[node name="CoffeeGranular" type="RigidBody2D" groups=["cafe"]]
+z_index = 7
+collision_layer = 20
+collision_mask = 26
+mass = 0.5
+gravity_scale = 6.065
+script = ExtResource("1_uktcn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("2_fg456")
+texture = ExtResource("3_fg456")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_no2k0")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_no2k0")
+
+[node name="GrowthTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_surface_detected"]

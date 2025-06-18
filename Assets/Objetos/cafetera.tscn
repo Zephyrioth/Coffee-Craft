@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cyy0r5n8ihalh"]
 
 [ext_resource type="Texture2D" uid="uid://uxs8ykdrixrs" path="res://Assets/Imagenes/Cafetera.png" id="1_rf3th"]
-[ext_resource type="Script" uid="uid://bc2eewkamkn1t" path="res://Assets/Objetos/area_enganche.gd" id="2_hag87"]
+[ext_resource type="Script" uid="uid://cbmblew611nvv" path="res://Assets/Objetos/enganche_cafetera.gd" id="2_hag87"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rf3th"]
 size = Vector2(66, 61)
@@ -15,7 +15,7 @@ texture = ExtResource("1_rf3th")
 
 [node name="Enganche_Cafetera" type="Area2D" parent="."]
 script = ExtResource("2_hag87")
-offset = Vector2(97, -58)
+offset = Vector2(95, -57)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enganche_Cafetera"]
 position = Vector2(34, -79.5)

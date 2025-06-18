@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cl83liksl5kn4"]
+
+[ext_resource type="Shader" uid="uid://b5b5km41of5cx" path="res://Assets/shaders/coffe_heap.gdshader" id="1_x5qp0"]
+
+[resource]
+shader = ExtResource("1_x5qp0")
+shader_parameter/fill = 0.0
+shader_parameter/flatten = 0.0
+shader_parameter/mode = 1
+shader_parameter/coffee_color = Color(0.3, 0.2, 0.1, 1)
+shader_parameter/peak_sharpness = 2.5

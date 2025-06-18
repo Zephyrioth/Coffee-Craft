@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bq0d320nhkxoa"]
+[gd_scene load_steps=8 format=3 uid="uid://bq0d320nhkxoa"]
 
+[ext_resource type="Script" uid="uid://bp6bv1ubxqb0a" path="res://Assets/Objetos/molinillo.gd" id="1_4cfip"]
 [ext_resource type="Texture2D" uid="uid://cgr5dsheunn7i" path="res://Assets/Imagenes/molinillo.png" id="1_bdgwh"]
 [ext_resource type="Script" uid="uid://bc2eewkamkn1t" path="res://Assets/Objetos/area_enganche.gd" id="2_4wki5"]
 [ext_resource type="Script" uid="uid://dilo56yq20qxu" path="res://Assets/Objetos/grinder_particles.gd" id="4_4cfip"]
@@ -10,17 +11,14 @@ size = Vector2(85, 67)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gb2ku"]
 particle_flag_disable_z = true
-angle_min = 1.07288e-05
-angle_max = 1.07288e-05
+spread = 24.775
 initial_velocity_min = 30.0
 initial_velocity_max = 30.0
 gravity = Vector3(0, 98, 0)
-damping_min = 4.302
-damping_max = 5.377
 color = Color(0.227451, 0.141176, 0.0901961, 1)
 
 [node name="Molinillo" type="Area2D"]
-script = ExtResource("2_4wki5")
+script = ExtResource("1_4cfip")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(59.3749, -89.0624)
@@ -28,6 +26,7 @@ scale = Vector2(0.309815, 0.309815)
 texture = ExtResource("1_bdgwh")
 
 [node name="Area Enganche" type="Area2D" parent="."]
+script = ExtResource("2_4wki5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area Enganche"]
 position = Vector2(61.5, -5.5)
@@ -41,26 +40,17 @@ offset_top = -171.0
 offset_right = 105.0
 offset_bottom = -131.0
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Boton"]
+[node name="SonidoGrind" type="AudioStreamPlayer2D" parent="Boton"]
 stream = ExtResource("4_ww8ox")
 
 [node name="Salida Cafe" type="GPUParticles2D" parent="."]
 emitting = false
-amount = 120
+amount = 30
 amount_ratio = 0.5
-lifetime = 1.69
+one_shot = true
 collision_base_size = 0.1
 process_material = SubResource("ParticleProcessMaterial_gb2ku")
 script = ExtResource("4_4cfip")
-
-[node name="CoffeeSpawnPoint" type="Marker2D" parent="."]
-position = Vector2(59, -72)
-
-[node name="GrowthTimer" type="Timer" parent="."]
-wait_time = 0.1
-
-[node name="PortafilterAnchor" type="Marker2D" parent="."]
-position = Vector2(59, -76)
 
 [connection signal="body_entered" from="Area Enganche" to="." method="_on_AreaEnganche_body_entered"]
 [connection signal="body_exited" from="Area Enganche" to="." method="_on_AreaEnganche_body_exited"]
