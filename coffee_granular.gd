@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-@export var growth_rate: float = 0.02
+@export var growth_rate: float = 0.3
 @export var peak_sharpness: float = 2.5
 @export var size_scale: float = 5.0
 @export var growth_curve: Curve

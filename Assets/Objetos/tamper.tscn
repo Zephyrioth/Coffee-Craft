@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://s4dx80s5sep1"]
+
+[ext_resource type="Texture2D" uid="uid://bc808mftchxxw" path="res://Assets/Imagenes/tamper.png" id="1_gsupi"]
+
+[node name="Tamper" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+scale = Vector2(0.116455, 0.116455)
+texture = ExtResource("1_gsupi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

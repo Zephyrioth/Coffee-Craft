@@ -4,8 +4,3 @@
 
 [resource]
 shader = ExtResource("1_x5qp0")
-shader_parameter/fill = 0.0
-shader_parameter/flatten = 0.0
-shader_parameter/mode = 1
-shader_parameter/coffee_color = Color(0.3, 0.2, 0.1, 1)
-shader_parameter/peak_sharpness = 2.5

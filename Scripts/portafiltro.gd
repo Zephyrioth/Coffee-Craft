@@ -166,9 +166,13 @@ func _is_mouse_over() -> bool:
 	query.position = mouse_pos
 	query.collide_with_areas = true
 	query.collide_with_bodies = false
-	query.exclude = [self]
+	query.exclude = []
 	var result = get_world_2d().direct_space_state.intersect_point(query)
-	return not result.is_empty()
+	
+	for item in result:
+		if item["collider"] == area_pickable:
+			return true
+	return false
 	
 func _on_CoffeeDetectionArea_body_entered(body: Node2D) -> void:
 	print("Entra")

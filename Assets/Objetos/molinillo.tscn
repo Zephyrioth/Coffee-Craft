@@ -10,14 +10,17 @@ size = Vector2(85, 67)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gb2ku"]
 particle_flag_disable_z = true
-angle_min = 1.07288e-05
-angle_max = 1.07288e-05
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+spread = 13.261
 initial_velocity_min = 30.0
 initial_velocity_max = 30.0
 gravity = Vector3(0, 98, 0)
 damping_min = 4.302
 damping_max = 5.377
-color = Color(0.227451, 0.141176, 0.0901961, 1)
+scale_min = 1.2
+scale_max = 1.2
+color = Color(0.470588, 0.227451, 0.12549, 1)
 
 [node name="Molinillo" type="Area2D"]
 script = ExtResource("2_4wki5")
@@ -45,16 +48,18 @@ offset_bottom = -131.0
 stream = ExtResource("4_ww8ox")
 
 [node name="Salida Cafe" type="GPUParticles2D" parent="."]
+z_index = 6
+position = Vector2(59, -75)
+rotation = 1.48546
 emitting = false
-amount = 120
-amount_ratio = 0.5
-lifetime = 1.69
-collision_base_size = 0.1
+amount = 1200
+lifetime = 0.95
+fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_gb2ku")
 script = ExtResource("4_4cfip")
 
 [node name="CoffeeSpawnPoint" type="Marker2D" parent="."]
-position = Vector2(59, -72)
+position = Vector2(60, -31)
 
 [node name="GrowthTimer" type="Timer" parent="."]
 wait_time = 0.1
