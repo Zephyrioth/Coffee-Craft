@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dtdia25kkyduf"]
+[gd_scene load_steps=12 format=3 uid="uid://dtdia25kkyduf"]
 
 [ext_resource type="PackedScene" uid="uid://cyy0r5n8ihalh" path="res://Assets/Objetos/cafetera.tscn" id="1_3niq8"]
 [ext_resource type="Script" uid="uid://cb306bqco4x7i" path="res://primera_escena.gd" id="1_foxv5"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b2m0f0vfnmp8e" path="res://Assets/Imagenes/fondo.png" id="6_sx618"]
 [ext_resource type="PackedScene" uid="uid://s4dx80s5sep1" path="res://Assets/Objetos/tamper.tscn" id="8_2agnm"]
 [ext_resource type="AudioStream" uid="uid://cp4tebaucumoi" path="res://Assets/Sounds/Moonlit Reverie.mp3" id="8_ldm0s"]
+[ext_resource type="PackedScene" uid="uid://wq5g7obt5ef1" path="res://Soporte.tscn" id="9_2agnm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_macbb"]
 size = Vector2(1926.25, 107)
@@ -69,7 +70,11 @@ texture = ExtResource("6_sx618")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_ldm0s")
+autoplay = true
 
 [node name="Tamper" parent="." instance=ExtResource("8_2agnm")]
 z_index = 7
-position = Vector2(1168, 751)
+position = Vector2(1488, 811)
+
+[node name="Soporte" parent="." instance=ExtResource("9_2agnm")]
+position = Vector2(1612, 996)

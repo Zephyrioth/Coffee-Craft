@@ -1,13 +1,34 @@
-[gd_scene load_steps=2 format=3 uid="uid://s4dx80s5sep1"]
+[gd_scene load_steps=4 format=3 uid="uid://s4dx80s5sep1"]
 
+[ext_resource type="Script" uid="uid://d1ad3dirj10q2" path="res://Assets/Objetos/tamper.gd" id="1_5v1vr"]
 [ext_resource type="Texture2D" uid="uid://bc808mftchxxw" path="res://Assets/Imagenes/tamper.png" id="1_gsupi"]
 
-[node name="Tamper" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5v1vr"]
+size = Vector2(64, 22)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Tamper" type="RigidBody2D" groups=["coffee"]]
+collision_mask = 8
+gravity_scale = 3.009
+script = ExtResource("1_5v1vr")
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+[node name="PressArea" type="Area2D" parent="."]
+collision_layer = 40
+collision_mask = 40
+
+[node name="Sprite2D" type="Sprite2D" parent="PressArea"]
 scale = Vector2(0.116455, 0.116455)
 texture = ExtResource("1_gsupi")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="TamperCollision" type="CollisionShape2D" parent="PressArea"]
+position = Vector2(0, 55)
+shape = SubResource("RectangleShape2D_5v1vr")
+
+[node name="MouseArea" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MouseArea"]
+polygon = PackedVector2Array(12, -6, 15, -18, 21, -31, 24, -46, 20, -61, 9, -66, -10, -66, -21, -60, -24, -45, -21, -33, -14, -15, -12, 0, -15, 17, -28, 27, -35, 32, -36, 52, -31, 54, -32, 62, -19, 66, 13, 66, 31, 63, 31, 55, 36, 53, 37, 32, 24, 25, 17, 21)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(12, -6, 15, -18, 21, -31, 24, -46, 20, -61, 9, -66, -10, -66, -21, -60, -24, -45, -21, -33, -14, -15, -12, 0, -15, 17, -28, 27, -35, 32, -36, 52, -31, 54, -32, 62, -19, 66, 13, 66, 31, 63, 31, 55, 36, 53, 37, 32, 24, 25, 17, 21)
+
+[connection signal="body_entered" from="PressArea" to="." method="_on_TamperCollision_body_entered"]

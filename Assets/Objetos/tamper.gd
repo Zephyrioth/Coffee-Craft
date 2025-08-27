@@ -15,36 +15,25 @@ var calculated_velocity := Vector2.ZERO
 var grab_offset := Vector2.ZERO
 var previous_position := Vector2.ZERO
 
-var is_snapped := false
-var snap_position := Vector2.ZERO
-var pending_unsnap := false
-const gravity = 980
-
-var snap_candidate_position: Vector2 = Vector2.ZERO
-var can_snap: bool = false
+const gravity = 1200
 
 const SLIDE_FRICTION := 0.85
 const WALL_DETECTION_OFFSET := 20.0
 
 @onready var area_pickable := $MouseArea
 @onready var audio = get_node_or_null("AudioStreamPlayer2D")
+@onready var collision_area := $PressArea 
+
+
+func _ready():
+	print("✅ Tamper listo")
+	if collision_area:
+		collision_area.body_entered.connect(_on_TamperCollision_body_entered)
+		print("🔗 Señal body_entered conectada")
+	else:
+		print("⚠️ TamperCollision no encontrado")
 
 func _physics_process(delta):
-	# 1. Manejo del estado enganchado
-	if is_snapped:
-		if pending_unsnap and Input.is_action_pressed("left_click") and _is_mouse_over():
-			unsnap()
-			dragging = true
-			grab_offset = get_global_mouse_position() - global_position
-			previous_position = global_position
-			pending_unsnap = false
-			return
-			
-		global_position = snap_position
-		rotation = 0.0
-		linear_velocity = Vector2.ZERO
-		angular_velocity = 0.0
-		return
 	
 	# 2. Lógica de arrastre
 	if Input.is_action_pressed("left_click"):
@@ -99,72 +88,17 @@ func _physics_process(delta):
 		set("mode", RIGID)
 		sleeping = false
 		# Reactivar gravedad
-		gravity_scale = 1.0
+		gravity_scale = 2.0
 		
-		# ELIMINADO: calculated_velocity.y = 0  // Esto quitaba el movimiento vertical
-		
+
 		# Aplicar velocidad limitada
 		if calculated_velocity.length() > MAX_RELEASE_SPEED:
 			calculated_velocity = calculated_velocity.normalized() * MAX_RELEASE_SPEED
 		
 		linear_velocity = calculated_velocity * 1.2
 		angular_velocity = calculated_velocity.x * 0.005
-		
-		# Auto-enganche
-		if can_snap:
-			snap(snap_candidate_position)
-			can_snap = false
-	
-	# 4. Gravedad
-	if not dragging and not is_snapped:
 		linear_velocity.y += gravity * delta
 
-func _input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		if is_snapped:
-			pending_unsnap = _is_mouse_over()
-
-func snap(target_position: Vector2):
-	freeze = true
-	sleeping = true
-	
-	var tween = create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.set_trans(Tween.TRANS_QUAD)
-	tween.tween_property(self, "global_position", target_position, 0.15)
-	tween.tween_property(self, "rotation", 0.0, 0.1)
-	
-	tween.tween_callback(func():
-		is_snapped = true
-		snap_position = target_position
-		set("mode", KINEMATIC)
-		linear_velocity = Vector2.ZERO
-		angular_velocity = 0.0
-	)
-	
-	GrabManager.current_dragged_object = null
-	
-	if audio:
-		audio.play()
-
-func unsnap():
-	is_snapped = false
-	set("mode", RIGID)
-	freeze = false
-	sleeping = false
-	continuous_cd = RigidBody2D.CCD_MODE_CAST_RAY
-	
-	GrabManager.current_dragged_object = self
-	
-	linear_velocity = Vector2.ZERO
-	angular_velocity = 0.0
-	
-	apply_central_impulse(Vector2(0, 10))
-	
-	grab_offset = get_global_mouse_position() - global_position
-	previous_position = global_position
-	
-	PhysicsServer2D.body_set_state(get_rid(), PhysicsServer2D.BODY_STATE_SLEEPING, false)
 
 func _is_mouse_over() -> bool:
 	var mouse_pos = get_global_mouse_position()
@@ -179,13 +113,8 @@ func _is_mouse_over() -> bool:
 		if item["collider"] == area_pickable:
 			return true
 	return false
+
+func _on_TamperCollision_body_entered(body):
+	if body.is_in_group("coffee") and calculated_velocity.y > 300:
+		body.apply_press(calculated_velocity, rotation)
 	
-func _on_CoffeeDetectionArea_body_entered(body: Node2D) -> void:
-	print("Entra")
-	if body.name == "CoffeeGranular" or body.is_in_group("coffee"):
-		body.current_surface = "portafilter"
-		body.call_deferred("freeze_inside_portafilter")
-		body.linear_velocity = Vector2.ZERO
-		body.call_deferred("_update_collision", false)
-		body.call_deferred("apply_visual_form")
-		print("☕ Café ha entrado al portafiltro visualmente")

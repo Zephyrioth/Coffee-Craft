@@ -26,12 +26,13 @@ func _on_grind_button_pressed():
 		await get_tree().create_timer(1.0).timeout  # Espera 0.3 segundos
 		if coffee_instance == null:
 			spawn_coffee()
+			print("1")
 		
 		coffee_instance.start_filling()
 	else:
 		print("stop filling")
 		if coffee_instance:
-			
+			print("2")
 			coffee_instance.stop_filling()
 		audio.stop()
 

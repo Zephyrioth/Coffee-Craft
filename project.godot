@@ -15,10 +15,18 @@ run/main_scene="uid://dtdia25kkyduf"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GrabManager="*res://Scripts/GrabManager.gd"
+
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/script_spliter/plugin.cfg")
 
 [input]
 
@@ -34,3 +42,5 @@ left_click={
 2d_physics/layer_2="paredes_internas"
 2d_physics/layer_3="cafe"
 2d_physics/layer_4="mesa"
+2d_physics/layer_5="nose"
+2d_physics/layer_6="Tamper"
